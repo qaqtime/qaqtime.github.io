@@ -1,0 +1,761 @@
+
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.48 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Hugo tranquilpeak theme</title>
+    <meta name="author" content="SwordsTar">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://qaqtime.github.io/favicon.png">
+    
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://qaqtime.github.io/index.xml">
+    
+
+    
+    <meta name="description" content="Hugo tranquilpeak theme demo">
+    <meta property="og:description" content="Hugo tranquilpeak theme demo">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Hugo tranquilpeak theme">
+    <meta property="og:url" content="/">
+    <meta property="og:site_name" content="Hugo tranquilpeak theme">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Hugo tranquilpeak theme">
+    <meta name="twitter:description" content="Hugo tranquilpeak theme demo">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://qaqtime.github.io/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+      <canvas id="theCanvas"></canvas>
+<script>
+    const theCanvas = document.getElementById('theCanvas'),
+      ctx = theCanvas.getContext('2d'),
+      current_point = {
+        x: null, 
+        y: null, 
+        max: 20000,
+      };
+    let canvas_width = theCanvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+      canvas_height = theCanvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+      random_points = [],
+      all_points = [];
+    theCanvas.style = "position: fixed; top: 0px; left: 0px;";
+    function draw() {
+      
+      ctx.clearRect(0, 0, canvas_width, canvas_height);
+      let i,pi,x_dist,y_dist,dist,w;
+      
+      random_points.forEach((p, index) => {
+        p.x += p.xa,		
+        p.y += p.ya,
+        
+        p.xa *= p.x > canvas_width || p.x < 0 ? -1 : 1,
+        p.ya *= p.y > canvas_height || p.y < 0 ? -1 : 1,
+        ctx.fillRect(p.x - 0.5, p.y - 0.5, 1, 1);		
+        for(i = index + 1; i < all_points.length; i++ ) {
+          pi = all_points[i];
+          if(pi.x !== null && pi.y !== null) {
+            x_dist = p.x - pi.x;
+            y_dist = p.y - pi.y;
+            dist = x_dist * x_dist + y_dist * y_dist;
+            
+            dist < pi.max && (pi === current_point && dist >= pi.max / 2 && (p.x -= 0.03 * x_dist, p.y -= 0.03 * y_dist));
+            
+            w = (pi.max - dist) / pi.max;
+            ctx.beginPath();
+            ctx.lineWidth = w / 2;
+            ctx.strokeStyle = `rgba(110,110,110,${w + 0.2})`;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(pi.x, pi.y);
+            ctx.stroke();
+          }
+        }
+      }),requestAnimationFrame(draw);
+    }
+    
+    window.onmousemove = e => {
+      e = e || window.event;
+      current_point.x = e.clientX;
+      current_point.y = e.clientY;
+    };
+    window.onmouseout = () => {
+      current_point.x = null;
+      current_point.y = null;
+    };
+    
+    
+    for(let i = 0; i < 100; i++ ) {
+      let	x = Math.random() * canvas_width,	
+        y = Math.random() * canvas_height,
+        xa = 2 * Math.random() - 1,			
+        ya = 2 * Math.random() - 1,			
+        max = 6000;							
+      random_points[i] = {x, y, xa, ya, max};
+    }
+    
+    all_points = [...random_points,current_point];
+    
+    setTimeout(draw, 100);
+</script>
+    <div id="blog">
+      <header id="header" data-behavior="1">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://qaqtime.github.io/">Hugo tranquilpeak theme</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://qaqtime.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="1">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://qaqtime.github.io/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">SwordsTar</h4>
+        
+          <h5 class="sidebar-profile-bio">Super bio with markdown support <strong>COOL</strong></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kakawait" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/636472/kakawait" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://qaqtime.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="1"
+        class="
+               hasCoverMetaIn
+               ">
+        <section class="postShorten-group main-content-wrap">
+          
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+          这是一个魅力的一天
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-09-03T18:27:16&#43;08:00">
+        
+  September 3, 2018
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+       这是一个魅力的传输协议 
+      <p>
+        <a href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+          这是一个魅力的一天
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-09-03T18:27:16&#43;08:00">
+        
+  September 3, 2018
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+       这是一个魅力的传输协议 
+      <p>
+        <a href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+          这是一个魅力的一天
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-09-03T18:27:16&#43;08:00">
+        
+  September 3, 2018
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+       这是一个魅力的传输协议 
+      <p>
+        <a href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+          这是一个魅力的一天
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-09-03T18:27:16&#43;08:00">
+        
+  September 3, 2018
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+       这是一个魅力的传输协议 
+      <p>
+        <a href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+          
+  <div class="pagination-bar">
+    <ul class="pagination">
+      
+        
+          <li class="pagination-prev">
+            <a class="btn btn--default btn--small" href="https://qaqtime.github.io/">
+              <i class="fa fa-angle-left text-base icon-mr"></i>
+              <span>NEWER POSTS</span>
+            </a>
+          </li>
+        
+        
+      
+      <li class="pagination-number">page 2 of 2</li>
+    </ul>
+  </div>
+
+
+        </section>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 SwordsTar. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">SwordsTar</h4>
+    
+      <div id="about-card-bio">Super bio with markdown support <strong>COOL</strong></div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Your job title
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        France
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://qaqtime.github.io/2018/09/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%AD%85%E5%8A%9B%E7%9A%84%E4%B8%80%E5%A4%A9/">
+                <h3 class="media-heading">这是一个魅力的一天</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"> 这是一个魅力的传输协议 </div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         11 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('https://qaqtime.github.io/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://qaqtime.github.io/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+    
+  </body>
+</html>
